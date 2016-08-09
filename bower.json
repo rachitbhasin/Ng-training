@@ -1,0 +1,25 @@
+{
+  "name": "Ng-Training",
+  "description": "This is a training session project. This is only for demo.",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "Angularjs"
+  ],
+  "authors": [
+    "Rachit Bhasin"
+  ],
+  "license": "IDS",
+  "homepage": "www.idsil.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#^1.5.8"
+  }
+}

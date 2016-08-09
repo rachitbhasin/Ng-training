@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<script src="bower_components/angular/angular.min.js"></script>
+
+</head>
+<body x-ng-app="mySecondModule" >
+
+<div x:ng:controller="HomeController" > 
+ 	<p>Name : {{name + ' Bhasin'}}</p>
+ 	<p>{{ 5 + 5 }}</p>
+ 	<div x:ng:controller="NestedCtrl">
+ 		<h1>Hello <span x:ng:bind="getName()"></span></h1>
+ 		<button x:ng:click="nestedFunc()">click me!</button>
+ 	</div>
+ 	<test-d></test-d>
+ 	<div test-d></div>
+</div>
+
+<script>
+/*angular.bootstrap(document.body, ['myFirstApp']);*/
+	var app = angular.module('myFirstApp',[]);
+	var app1 = angular.module('mySecondModule',['myFirstApp']);
+	app.controller("HomeController",function($scope,$rootScope){
+		$scope.name = "Rachit";
+		$rootScope.test = 'testing';
+	});
+
+	app1.controller("NestedCtrl",function($scope,$rootScope){
+		$scope.name = "Bhasin";
+		$scope.nestedFunc = function(){
+			console.log($rootScope.test);
+		} 
+		$scope.getName = function(){
+			return "asdfdfghghjk";
+		}
+	});
+
+	app.directive("testD", function() {
+	    return {
+	    	restrict: 'EA',
+	        templateUrl : "./test.html"
+	    };
+	});
+
+	app.service();
+</script>
+</body>
+
+</html>
