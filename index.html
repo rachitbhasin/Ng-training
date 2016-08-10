@@ -2,49 +2,52 @@
 <html lang="en-US">
 <head>
 	<script src="bower_components/angular/angular.min.js"></script>
+	<style type="text/css">
+		.blue { background: blue; color: #fff;} 
+		.green { background: green; color: #fff;}
+		.found { background: red; color: #fff;}
 
+	</style>
 </head>
-<body x-ng-app="mySecondModule" >
+<body x-ng-app="myFirstApp" >
 
 <div x:ng:controller="HomeController" > 
- 	<p>Name : {{name + ' Bhasin'}}</p>
- 	<p>{{ 5 + 5 }}</p>
- 	<div x:ng:controller="NestedCtrl">
- 		<h1>Hello <span x:ng:bind="getName()"></span></h1>
- 		<button x:ng:click="nestedFunc()">click me!</button>
+ 	<p>Quantity : <input type="number" x:ng:model="quantity"></p>
+ 	<p>Price : <input type="text" allow-pattern="[RACHIT]" x:ng:model="price"></p>
+ 	<p>Total is {{quantity * price}}</p>
+ 	<div>
+ 		<label>Search: </label><input type="text" x:ng:model="name"/>
+ 		<p>{{name}}</p>
+ 		<table>
+ 			<tr>
+ 				<th>Id</th>
+ 				<th>Name</th>
+ 				<th>Age</th>
+ 				<th>Action</th>
+ 			</tr>
+ 			<tr x:ng:class="{'blue': $even, 'green': $odd, found: $middle }" x:ng:repeat="p in persons | orderBy: 'age' : true | filter: search" >
+ 				<td>{{p.id}}</td>
+ 				<td>{{p.name}}</td>
+ 				<td>{{p.age}}</td>
+ 				<td><button x:ng:click="selectItem(p)">View</button></td>
+ 			</tr>
+ 		</table>
  	</div>
- 	<test-d></test-d>
- 	<div test-d></div>
+ 	<div>
+ 		<p>{{selected}}</p>
+ 	</div>
+ 	<!-- <div>
+ 		<p x:ng:repeat="a in myArr track by $index">{{a}}</p>
+ 	</div> -->
 </div>
 
 <script>
 /*angular.bootstrap(document.body, ['myFirstApp']);*/
-	var app = angular.module('myFirstApp',[]);
-	var app1 = angular.module('mySecondModule',['myFirstApp']);
-	app.controller("HomeController",function($scope,$rootScope){
-		$scope.name = "Rachit";
-		$rootScope.test = 'testing';
-	});
-
-	app1.controller("NestedCtrl",function($scope,$rootScope){
-		$scope.name = "Bhasin";
-		$scope.nestedFunc = function(){
-			console.log($rootScope.test);
-		} 
-		$scope.getName = function(){
-			return "asdfdfghghjk";
-		}
-	});
-
-	app.directive("testD", function() {
-	    return {
-	    	restrict: 'EA',
-	        templateUrl : "./test.html"
-	    };
-	});
-
-	app.service();
+	
 </script>
+<script src="./app.js" type="text/javascript"></script>
+<script src="./controllers/HomeController.js" type="text/javascript"></script>
+<script src="./directives/directives.js" type="text/javascript"></script>
 </body>
 
 </html>
