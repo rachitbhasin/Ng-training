@@ -1,5 +1,5 @@
-var app = angular.module('myFirstApp',[]);
-	app.controller("HomeController",function($scope,$rootScope){
+var app = angular.module('HomeModule',[]);
+	app.controller("HomeController",function($scope,$rootScope,$location,$http){
 		$scope.name = "";
 		$scope.persons = [
 				{id:0,name:'Arvind',age:26},
@@ -7,6 +7,11 @@ var app = angular.module('myFirstApp',[]);
 				{id:2,name:'Ajay',age:24},
 				{id:3,name:'Amit',age:30}
 			]
+		$scope.users = [];
+		$http.get("https://jsonplaceholder.typicode.com/users").then(function(response) {
+	        $scope.users = response.data;
+	    });
+
 		$scope.myArr = [42, 42, 43, 43];
 		$rootScope.test = 'testing';
 		$scope.search = function(p){
@@ -19,6 +24,7 @@ var app = angular.module('myFirstApp',[]);
 			}
 			
 		}
+		console.log($location.absUrl());
 		$scope.selectItem = function(i){
 			$scope.selected = i.name;
 		}
