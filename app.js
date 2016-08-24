@@ -1,8 +1,50 @@
-var app = angular.module('myFirstApp',['HomeModule']);
+var deps = ['ui.router',
+	'HomeModule',
+	'ContactsModule',
+	'HeaderModule'
+]
+var app = angular.module('myFirstApp', deps);
 	
-	app.config(function($httpProvider) {
+	app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 		console.log('Entered Config Block');
 	    $httpProvider.interceptors.push('APIInterceptor');
+	    $urlRouterProvider.otherwise('/home');
+
+	    $stateProvider
+			.state('root',{
+	          url: '',
+	          abstract: true,
+	          views: {
+	            'header':{
+	              templateUrl: 'templates/header.html',
+	              controller: 'HeaderController'
+	            }
+	          }
+	        })
+		.state('root.home', {
+			url: '/home',
+			views: {
+				'main@': {
+					templateUrl: 'templates/home.html',
+					controller: 'HomeController'
+				}
+			},
+			params:{
+				joinDetails: null
+			}
+		}).state('root.contacts', {
+			url: '/contacts',
+			views: {
+				'main@': {
+					templateUrl: 'templates/contacts.html',
+					controller: 'ContactsController'
+				}
+			},
+			params:{
+				joinDetails: null
+			}
+		});
+
 	});
 
 	app.directive("testD", function() {
@@ -35,8 +77,13 @@ var app = angular.module('myFirstApp',['HomeModule']);
 	       return response;
 	    };
 	});
-
-	app.run(function() {
+	app.constant("Constants", {
+			'apiUrl': 'https://jsonplaceholder.typicode.com/users'
+		}
+	)
+	app.run(function($rootScope) {
 		console.log('Entered Run Block');
-	    //$httpProvider.interceptors.push('APIInterceptor');
+	    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+	    	console.log("state change has started");
+	    })
 	});

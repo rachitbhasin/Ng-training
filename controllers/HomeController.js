@@ -1,6 +1,6 @@
 var app = angular.module('HomeModule',[]);
-	app.controller("HomeController",function($scope,$rootScope,$location,$http){
-		$scope.name = "";
+	app.controller("HomeController",function($scope,$rootScope,$location,$http,$log,Constants,$stateParams){
+		$scope.name = "test";
 		$scope.persons = [
 				{id:0,name:'Arvind',age:26},
 				{id:1,name:'Rachit',age:26},
@@ -8,9 +8,21 @@ var app = angular.module('HomeModule',[]);
 				{id:3,name:'Amit',age:30}
 			]
 		$scope.users = [];
-		$http.get("https://jsonplaceholder.typicode.com/users").then(function(response) {
+
+		console.log($stateParams.joinDetails);
+		$http.get(Constants.apiUrl).then(function(response) {
 	        $scope.users = response.data;
 	    });
+ 		
+		 $scope.selection = function(x){
+			$log.warn(x);
+			$log.info(" is of type ");
+			$log.error(typeof x);
+	    }
+
+	    $scope.testing = function(e){
+	    	e.preventDefault();
+	    }
 
 		$scope.myArr = [42, 42, 43, 43];
 		$rootScope.test = 'testing';
@@ -28,6 +40,7 @@ var app = angular.module('HomeModule',[]);
 		$scope.selectItem = function(i){
 			$scope.selected = i.name;
 		}
+
 	});
 
 	app.directive('float', function(){

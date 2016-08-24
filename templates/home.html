@@ -1,0 +1,52 @@
+<div> 
+ 	<p>Quantity : <input type="number" x:ng:copy="testing($event)" x:ng:model="quantity"></p>
+ 	<p>Price : <input type="text" allow-pattern="[RACHIT]" x:ng:model="price"></p>
+ 	<p>Total is {{quantity * price}}</p>
+ 	<div>
+ 		<label>Search: </label><input type="text" x:ng:model="name"/>
+ 		<p>{{name}}</p>
+ 		<table>
+ 			<tr>
+ 				<th>Id</th>
+ 				<th>Name</th>
+ 				<th>Age</th>
+ 				<th>Action</th>
+ 			</tr>
+ 			<tr x:ng:class="{'blue': $even, 'green': $odd, found: $middle }" x:ng:repeat="p in persons | orderBy: 'age' : true | filter: search" >
+ 				<td>{{p.id}}</td>
+ 				<td>{{p.name}}</td>
+ 				<td>{{p.age}}</td>
+ 				<td><button x:ng:click="selectItem(p)">View</button></td>
+ 			</tr>
+ 		</table>
+ 	</div>
+ 	<div>
+ 		<p>{{selected}}</p>
+ 	</div>
+ 	{{persons | json}}
+ 	<div>
+ 		<table>
+ 			<tr>
+ 				<th>Id</th>
+ 				<th>Name</th>
+ 				<th>Phone</th>
+ 				<th>Username</th>
+ 			</tr>
+ 			<tr x:ng:class="{'blue': $even, 'green': $odd}" x:ng:repeat="u in users" >
+ 				<td>{{u.id}}</td>
+ 				<td>{{u.name}}</td>
+ 				<td>{{u.phone}}</td>
+ 				<td>{{u.username}}</td>
+ 			</tr>
+ 		</table>
+ 	</div>
+ 	<!-- <div>
+ 		<p x:ng:repeat="a in myArr track by $index">{{a}}</p>
+ 	</div> -->
+ 	<select ng-model="selectedName" x:ng:change="selection(selectedName)" ng-options="x.name for x in persons">
+	</select>
+
+	<select ng-model="selectedName1" x:ng:change="selection(selectedName1)" >
+	    <option ng-repeat="x in persons" value={{x}}>{{x.name}}</option>
+	</select>
+</div>
