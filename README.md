@@ -1,2 +1,2 @@
 # Ng-training
-This just an application for training purposes.
+This is just an application for training purposes.
